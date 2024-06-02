@@ -1,5 +1,6 @@
 import { useAsyncData } from '../fetch-loop';
 
+// Define a custom error class for handling swap API errors
 export class SwapApiError extends Error {
   constructor(msg, status) {
     super(msg);
@@ -8,6 +9,7 @@ export class SwapApiError extends Error {
   }
 }
 
+// Function to handle the swap API request
 export async function swapApiRequest(
   method,
   path,
@@ -23,10 +25,12 @@ export async function swapApiRequest(
     params.body = JSON.stringify(body);
   }
 
-  let resp = await fetch(`https://swap.sollet.io/api/${path}`, params);
+  // Fetch data from the OpenBook API
+  let resp = await fetch(`https://api.openbook.ag/${path}`, params);
   return await handleSwapApiResponse(resp, ignoreUserErrors);
 }
 
+// Function to handle the response from the swap API
 async function handleSwapApiResponse(resp, ignoreUserErrors) {
   let json = await resp.json();
   if (!json.success) {
@@ -38,6 +42,7 @@ async function handleSwapApiResponse(resp, ignoreUserErrors) {
   return json.result;
 }
 
+// Custom hook to fetch data using the swap API
 export function useSwapApiGet(path, options) {
   return useAsyncData(
     async () => {
