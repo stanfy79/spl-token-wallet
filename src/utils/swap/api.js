@@ -26,7 +26,7 @@ export async function swapApiRequest(
   }
 
   // Fetch data from the OpenBook API
-  let resp = await fetch(`https://api.openbook.ag/${path}`, params);
+  let resp = await fetch(`github.com/openbook-dex/program.git/${path}`, params);
   return await handleSwapApiResponse(resp, ignoreUserErrors);
 }
 
